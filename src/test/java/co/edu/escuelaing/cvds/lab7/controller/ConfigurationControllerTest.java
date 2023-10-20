@@ -50,10 +50,12 @@ class ConfigurationControllerTest {
 
     @Test
     void example() {
+        // Arrange / Given - precondition or setup
         Configuration configuration = new Configuration("premio", "800000");
         when(mockConfigurationRepository.findByPropiedad("premio")).thenReturn(Arrays.asList(configuration));
-
+        // Act / When - action or the behaviour that we are going test
         String value = configurationController.example(model);
+        // Assert / Then - verify the output
         standardOut.println(value);
         assertEquals("example", value);
     }
