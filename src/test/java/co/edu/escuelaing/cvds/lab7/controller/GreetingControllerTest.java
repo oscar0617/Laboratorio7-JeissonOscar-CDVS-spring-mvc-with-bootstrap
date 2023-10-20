@@ -68,6 +68,7 @@ class GreetingControllerTest {
     void getToDoItem() {
         // Arrange / Given - precondition or setup
         ToDoItem expectedToDoItem = new ToDoItem(1, 1, "delectus aut autem", false);
+        // https://www.baeldung.com/spring-mock-rest-template
         Mockito
                 .when(restTemplate.getForEntity("https://jsonplaceholder.typicode.com/todos/1", ToDoItem.class))
                 .thenReturn(new ResponseEntity<ToDoItem>(expectedToDoItem, HttpStatus.OK));
