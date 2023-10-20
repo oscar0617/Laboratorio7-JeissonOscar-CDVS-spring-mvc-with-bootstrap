@@ -46,8 +46,8 @@ class ConfigurationServiceTest {
     @Test
     void getPremio() {
         // Arrange / Given - precondition or setup
-        String expectedValue = "1000";
         String property = "premio";
+        String expectedValue = "1000";
         Configuration configuration = new Configuration(property, expectedValue);
         when(mockConfigurationRepository.findByPropiedad(property)).thenReturn(Arrays.asList(configuration));
         // Act / When - action or the behaviour that we are going test
