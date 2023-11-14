@@ -16,8 +16,6 @@ public class ToDoService {
 
     public ToDoItem getItem(Integer id) {
         String uri = URL_API + id;
-        RestTemplate restTemplate = new RestTemplate();
-
         ResponseEntity<ToDoItem> response = restTemplate.getForEntity(uri, ToDoItem.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
