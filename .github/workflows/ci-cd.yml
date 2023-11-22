@@ -19,16 +19,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
+      
       - name: Set up Java version
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: '8'
-
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+  
       - name: Build with Maven
         run: mvn clean package spring-boot:repackage
-
+  
       - uses: actions/cache@v3
         with:
           path: |
@@ -40,29 +42,31 @@ jobs:
     needs: build
     
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with:
-        path: |
-          target
-        key: cache-v1-${{ hashFiles('**/src', '**/pom.xml', '**/.github') }}
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Test with Maven
-      run: mvn test -Dtest='!co.edu.escuelaing.cvds.lab7.Lab7ApplicationTests#contextLoads'
-      
-    - name: Build and analyze
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PDSW-ECI_spring-mvc-with-bootstrap
-  
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            target
+          key: cache-v1-${{ hashFiles('**/src', '**/pom.xml', '**/.github') }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Test with Maven
+        run: mvn test -Dtest='!co.edu.escuelaing.cvds.lab7.Lab7ApplicationTests#contextLoads'
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=PDSW-ECI_spring-mvc-with-bootstrap
+
+      # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
 
   
