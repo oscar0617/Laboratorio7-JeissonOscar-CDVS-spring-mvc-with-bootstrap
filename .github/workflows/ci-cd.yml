@@ -65,6 +65,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
           mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.organization=pdsw-eci
           -Dsonar.projectKey=PDSW-ECI_spring-mvc-with-bootstrap
           -Dsonar.java.coverage.reportPaths=target/site/jacoco-aggregate/jacoco.xml
