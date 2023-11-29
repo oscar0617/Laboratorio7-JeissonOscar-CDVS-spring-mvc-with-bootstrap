@@ -5,18 +5,20 @@ import co.edu.escuelaing.cvds.lab7.service.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/configuration")
 public class ConfigurationController {
 
+    private final ConfigurationService configurationService;
+
     @Autowired
-    ConfigurationService configurationService;
+    public ConfigurationController(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
+    }
 
     @GetMapping("/example")
     public String example(Model model) {

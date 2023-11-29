@@ -25,14 +25,13 @@ class GreetingControllerTest {
     @InjectMocks
     private ToDoService toDoService;
 
-    @InjectMocks
     private GreetingController greetingController;
 
     @BeforeEach
     void setUp() {
         // To be implemented, remove if not needed
         MockitoAnnotations.initMocks(this);
-        greetingController.toDoService = toDoService;
+        greetingController = new GreetingController(toDoService);
     }
 
     @Test

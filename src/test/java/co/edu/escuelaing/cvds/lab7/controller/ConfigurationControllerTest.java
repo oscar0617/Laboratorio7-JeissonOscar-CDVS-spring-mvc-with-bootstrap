@@ -32,14 +32,13 @@ class ConfigurationControllerTest {
     @InjectMocks
     private ConfigurationService configurationService;
 
-    @InjectMocks
     private ConfigurationController configurationController;
 
     @BeforeEach
     void setUp() {
         // To be implemented, remove if not needed
         System.setOut(new PrintStream(outputStreamCaptor));
-        configurationController.configurationService = configurationService;
+        configurationController = new ConfigurationController(configurationService);
     }
 
     @AfterEach
