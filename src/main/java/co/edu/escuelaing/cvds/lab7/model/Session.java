@@ -14,7 +14,6 @@ import java.util.UUID;
 @ToString
 @Table(name = "session")
 public class Session {
-
     @Id
     @Column(name = "token", nullable=false, unique=true)
     private UUID token;

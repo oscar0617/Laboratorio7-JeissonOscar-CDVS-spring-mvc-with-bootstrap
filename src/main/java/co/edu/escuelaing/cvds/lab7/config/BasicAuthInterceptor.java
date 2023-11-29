@@ -51,10 +51,7 @@ public class BasicAuthInterceptor implements HandlerInterceptor {
                     sessionRepository.delete(session);
                     response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED, "SessionTimeout");
                     return false;
-                } else if (path.startsWith("/cliente") && !session.getUser().getUserRoles().contains(UserRole.CLIENTE)) {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
-                    return false;
-                } else if (path.startsWith("/admin") && !session.getUser().getUserRoles().contains(UserRole.ADMINISTRADOR)) {
+                } else if (path.startsWith("/login/protected") && !session.getUser().getUserRoles().contains(UserRole.ADMINISTRADOR)) {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
                     return false;
                 } else {
