@@ -49,6 +49,7 @@ public class LoginController {
             sessionRepository.save(session);
             // create and add a cookie to the response
             Cookie cookie = new Cookie("authToken", session.getToken().toString());
+            cookie.setHttpOnly(true);
             response.addCookie(cookie);
             return "redirect:/login/protected/example";
         }
