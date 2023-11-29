@@ -24,15 +24,24 @@ import java.util.UUID;
 @RequestMapping(value = "/login")
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private static final String LOGIN_PAGE = "login/login";
+
+    private final UserRepository userRepository;
+
+    private final SessionRepository sessionRepository;
 
     @Autowired
-    private SessionRepository sessionRepository;
+    public LoginController(
+            UserRepository userRepository,
+            SessionRepository sessionRepository
+    ) {
+        this.userRepository = userRepository;
+        this.sessionRepository = sessionRepository;
+    }
 
     @GetMapping("")
     public String login() {
-        return "login/login";
+        return LOGIN_PAGE;
     }
 
     @PostMapping("")
@@ -40,10 +49,10 @@ public class LoginController {
         User user = userRepository.findByEmail(parameters.get("email"));
         if (user == null) {
             model.addAttribute("errors", Arrays.asList("Usuario no encontrado"));
-            return "login/login";
+            return LOGIN_PAGE;
         } else if (!user.getPassword().equals(parameters.get("password"))) {
             model.addAttribute("errors", Arrays.asList("Contraseña incorrecta"));
-            return "login/login";
+            return LOGIN_PAGE;
         } else {
             Session session = new Session(UUID.randomUUID(), Instant.now(), user);
             sessionRepository.save(session);
@@ -63,7 +72,7 @@ public class LoginController {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return "login/login";
+        return LOGIN_PAGE;
     }
 
     @GetMapping("register")

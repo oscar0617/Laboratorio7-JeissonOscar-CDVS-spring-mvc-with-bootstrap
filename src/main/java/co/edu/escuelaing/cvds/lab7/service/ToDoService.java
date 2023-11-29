@@ -9,8 +9,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class ToDoService {
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public ToDoService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     static final String URL_API = "https://jsonplaceholder.typicode.com/todos/";
 

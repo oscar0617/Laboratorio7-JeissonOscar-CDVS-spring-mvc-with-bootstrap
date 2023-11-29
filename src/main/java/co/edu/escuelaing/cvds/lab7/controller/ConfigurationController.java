@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping(value = "/configuration")
 public class ConfigurationController {
 
+    private final ConfigurationService configurationService;
+
     @Autowired
-    ConfigurationService configurationService;
+    public ConfigurationController(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
+    }
 
     @GetMapping("/example")
     public String example(Model model) {

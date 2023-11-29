@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "/greeting")
 public class GreetingController {
+    private final ToDoService toDoService;
+
     @Autowired
-    ToDoService toDoService;
+    public GreetingController(ToDoService toDoService) {
+        this.toDoService = toDoService;
+    }
 
     @GetMapping("")
     public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
