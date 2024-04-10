@@ -23,17 +23,14 @@ public class EmployeeService {
      * @param role
      * @param salary
      */
-    public void addEmployee(String employeeId, String firstName, String lastName, String role, String salary) {
+    public void addEmployee(int employeeId, String firstName, String lastName, String role, String salary) {
         double salaryDoble = 0;
-        int id = 0;
         try{
             salaryDoble = Double.parseDouble(salary);
-            id = Integer.parseInt(employeeId);
         }catch(Exception e){
             salaryDoble = 100;
-            id = 0;
         }
-        Employee empleado = new Employee(id, firstName, lastName, role, salaryDoble);
+        Employee empleado = new Employee(employeeId, firstName, lastName, role, salaryDoble);
         employeeRepository.save(empleado);
     }
 
@@ -45,9 +42,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
     
-    public void updateEmployee(String id, String firstName, String lastName){
-        int idInt = Integer.parseInt(id);
-        Employee empleado = getEmployee(idInt);
+    public void updateEmployee(int id, String firstName, String lastName){
+        Employee empleado = getEmployee(id);
         empleado.setFirstName(firstName);
         empleado.setLastName(lastName);
         employeeRepository.save(empleado);

@@ -28,7 +28,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/newPage/confirm")
-    public String addEmployee(@RequestParam String employeeId, String firstName,String lastName, String role, String salary){
+    public String addEmployee(@RequestParam int employeeId, String firstName,String lastName, String role, String salary){
         employeeService.addEmployee(employeeId, firstName, lastName, role, salary);
         return "redirect:/crud";
     }
@@ -40,8 +40,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/update/confirm")
-    public String updateEmployee(@RequestParam String employeeId, String firstName, String lastName) {
+    public String updateEmployee(@RequestParam int employeeId, String firstName, String lastName) {
         employeeService.updateEmployee(employeeId, firstName, lastName);
+        return "redirect:/crud";
+    }
+
+    @PostMapping("/delete/confirm")
+    public String updateEmployee(@RequestParam int employeeId) {
+        employeeService.deleteEmployee(employeeId);
         return "redirect:/crud";
     }
 }

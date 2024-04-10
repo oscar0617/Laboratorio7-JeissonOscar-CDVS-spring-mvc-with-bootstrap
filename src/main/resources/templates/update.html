@@ -8,7 +8,8 @@
 <body>
     <div id="div1">
         <h1 class="tittle" th:text="'UPDATE EMPLOYEE ' + ${employeeId} + ''"></h1>
-        <form th:action="@{/newPage/confirm}" method="post" onsubmit="return confirm('¿Está seguro de que desea actualizar al empleado?')">
+        <form th:action="@{/update/confirm}" method="post" onsubmit="return confirm('¿Está seguro de que desea actualizar al empleado?')">
+            <input type="hidden" id="employeeId" name="employeeId" th:value="${employeeId}">
             <div class="inputs">
 
                 <div class="update">
