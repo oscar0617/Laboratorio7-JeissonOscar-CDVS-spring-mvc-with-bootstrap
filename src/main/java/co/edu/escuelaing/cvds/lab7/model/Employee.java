@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
-    private String employeeId;
+    private int employeeId;
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Column(name = "LAST_NAME")
@@ -38,7 +38,7 @@ public class Employee {
      * @param role is the role of the employee
      * @param salary is the salary of the employee
      */
-    public Employee(String employeeId, String firstName, String lastName, String role, Double salary) {
+    public Employee(int employeeId, String firstName, String lastName, String role, Double salary) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,11 +46,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getEmployeeId() {
+    public int getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
 

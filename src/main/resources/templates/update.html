@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Employees CRUD</title>
+    <link rel="stylesheet" href="../static/employees.css">
+</head>
+<body>
+    <div id="div1">
+        <h1 class="tittle" th:text="'UPDATE EMPLOYEE ' + ${employeeId} + ''"></h1>
+        <form th:action="@{/newPage/confirm}" method="post" onsubmit="return confirm('¿Está seguro de que desea actualizar al empleado?')">
+            <div class="inputs">
+
+                <div class="update">
+                <label for="firstName">FIRST NAME</label>
+                <input type="text" id="firstName" name="firstName" required><br>
+                </div>
+                
+                <div class="update">
+                <label for="lastName">LAST NAME</label>
+                <input type="text" id="lastName" name="lastName" required><br>
+                </div>
+
+            </div>
+            <button type="submit">Actualizar empleado</button>
+        </form>
+    </div>
+</body>
+</html>

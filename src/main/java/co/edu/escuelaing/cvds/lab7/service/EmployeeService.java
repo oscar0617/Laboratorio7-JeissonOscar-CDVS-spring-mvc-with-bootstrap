@@ -23,26 +23,37 @@ public class EmployeeService {
      * @param role
      * @param salary
      */
-    public void addEmployee(String employeeId, String firstName, String lastName, String role, Double salary) {
-        Employee empleado = new Employee(employeeId, firstName, lastName, role, salary);
+    public void addEmployee(String employeeId, String firstName, String lastName, String role, String salary) {
+        double salaryDoble = 0;
+        int id = 0;
+        try{
+            salaryDoble = Double.parseDouble(salary);
+            id = Integer.parseInt(employeeId);
+        }catch(Exception e){
+            salaryDoble = 100;
+            id = 0;
+        }
+        Employee empleado = new Employee(id, firstName, lastName, role, salaryDoble);
         employeeRepository.save(empleado);
     }
 
-    public void getEmployee(String employeeId) {
-        employeeRepository.findByEmployeeId(employeeId).get(1);
+    public Employee getEmployee(int employeeId) {
+        return employeeRepository.findByEmployeeId(employeeId).get(0);
     }
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
     
-    public void updateEmployee(Employee empleado){
-        if (employeeRepository.findByEmployeeId(empleado.getEmployeeId()).size() == 0) {
-            employeeRepository.save(empleado);
-        }
+    public void updateEmployee(String id, String firstName, String lastName){
+        int idInt = Integer.parseInt(id);
+        Employee empleado = getEmployee(idInt);
+        empleado.setFirstName(firstName);
+        empleado.setLastName(lastName);
+        employeeRepository.save(empleado);
     }
 
-    public void deleteEmployee(String employeeId) {
+    public void deleteEmployee(int employeeId) {
         employeeRepository.deleteById(employeeId);
     }
 
